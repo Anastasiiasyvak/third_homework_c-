@@ -24,16 +24,30 @@ char* encrypt(char* rawText, int key)
 
 int main()
 {
-    char rawText[100];
-    int key = 0;
-    cout << "Enter the rawText:\n";
-    cin.getline(rawText, sizeof(rawText));
-    cout << "Enter our key:\n";
-    cin >> key;
-    cout << "Text : " << rawText;
-    cout << "\nKey: " << key;
-    char* encryptedText = encrypt(rawText, key);
-    cout << "\nCipher text: " << encryptedText;
-    delete[] encryptedText;
-    return 0;
+    while(true){
+        int command = 0;
+        std::cout << "\nChoose the command:\n";
+        std::cin >> command;
+        std::cin.ignore();
+        switch(command){
+            case 1:
+                char rawText[100];
+                int key = 0;
+                cout << "Enter the rawText:\n";
+                cin.getline(rawText, sizeof(rawText));
+                cout << "Enter our key:\n";
+                cin >> key;
+                cout << "Text : " << rawText;
+                cout << "\nKey: " << key;
+                char* encryptedText = encrypt(rawText, key);
+                cout << "\nCipher text: " << encryptedText;
+                delete[] encryptedText;
+                return 0;
+                break;
+
+
+        }
+    }
+
+
 }
