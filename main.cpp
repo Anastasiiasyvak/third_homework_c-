@@ -4,6 +4,9 @@ using namespace std;
 
 char* encryptedText = nullptr;
 
+
+
+
 char* encrypt(char* rawText, int key)
 {
     int length = strlen(rawText);
