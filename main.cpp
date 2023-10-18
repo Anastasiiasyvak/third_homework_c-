@@ -9,12 +9,13 @@ char* encrypt(char* rawText, int key)
     int length = strlen(rawText);
     char* result = new char[length + 1];
 
+
     for (int i = 0; i < length; i++) {
         char currentChar = rawText[i];
         if (isupper(currentChar)) {
-            currentChar = char(int(currentChar + key));
+            currentChar = char(int(currentChar + key - 65) % 26 + 65);
         } else if (islower(currentChar)) {
-            currentChar = char(int(currentChar + key));
+            currentChar = char(int(currentChar + key - 97) % 26 + 97);
         }
         result[i] = currentChar;
     }
@@ -28,12 +29,14 @@ char* decrypt(char* encryptedText, int key) {
     int length = strlen(encryptedText);
     char* result = new char[length + 1];
 
+    key = key % 26;
+
     for (int i = 0; i < length; i++) {
         char currentChar = encryptedText[i];
         if (isupper(currentChar)) {
-            currentChar = char(int(currentChar - key));
+            currentChar = char(int(currentChar - key - 65 + 26) % 26 + 65);
         } else if (islower(currentChar)) {
-            currentChar = char(int(currentChar - key));
+            currentChar = char(int(currentChar - key - 97 + 26) % 26 + 97);
         }
         result[i] = currentChar;
     }
@@ -49,7 +52,7 @@ int main() {
 
     while (true) {
         int command = 0;
-        std::cout << "\nChoose the command:\n";
+        std::cout << "\nChoose the command: \n1 encrypt command \n2 - decrypt command \n";
         std::cin >> command;
         std::cin.ignore();
 
@@ -62,13 +65,13 @@ int main() {
                 cout << "Text : " << rawText;
                 cout << "\nKey: " << key;
                 encryptedText = encrypt(rawText, key);
-                cout << "\nCipher text: " << encryptedText;
+                cout << "\nEncrypted text: " << encryptedText;
                 break;
 
             case 2:
                 if (encryptedText) {
                     char* decryptedText = decrypt(encryptedText, key);
-                    cout << "\nReturn from Cipher text again:  " << decryptedText;
+                    cout << "\nDecrypted text:  " << decryptedText;
                     delete[] decryptedText;
                 } else {
                     cout << "\nNo encrypted text to decrypt.";
