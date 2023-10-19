@@ -4,9 +4,6 @@ using namespace std;
 
 char* encryptedText = nullptr;
 
-
-
-
 char* encrypt(char* rawText, int key)
 {
     int length = strlen(rawText);
@@ -28,18 +25,18 @@ char* encrypt(char* rawText, int key)
     return result;
 }
 
-char* decrypt(char* encryptedText, int key) {
+char* decrypt(char* encryptedText, int key1) {
     int length = strlen(encryptedText);
     char* result = new char[length + 1];
 
-    key = key % 26;
+    key1 = key1 % 26;
 
     for (int i = 0; i < length; i++) {
         char currentChar = encryptedText[i];
         if (isupper(currentChar)) {
-            currentChar = char(int(currentChar - key - 65 + 26) % 26 + 65);
+            currentChar = char(int(currentChar - key1 - 65 + 26) % 26 + 65);
         } else if (islower(currentChar)) {
-            currentChar = char(int(currentChar - key - 97 + 26) % 26 + 97);
+            currentChar = char(int(currentChar - key1 - 97 + 26) % 26 + 97);
         }
         result[i] = currentChar;
     }
@@ -52,6 +49,7 @@ char* decrypt(char* encryptedText, int key) {
 int main() {
     char rawText[100];
     int key = 0;
+    int key1 = 0;
 
     while (true) {
         int command = 0;
@@ -73,7 +71,9 @@ int main() {
 
             case 2:
                 if (encryptedText) {
-                    char* decryptedText = decrypt(encryptedText, key);
+                    cout << "Enter key for decrypting:\n";
+                    cin >> key1;
+                    char* decryptedText = decrypt(encryptedText, key1);
                     cout << "\nDecrypted text:  " << decryptedText;
                     delete[] decryptedText;
                 } else {
